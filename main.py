@@ -57,3 +57,23 @@ class MastermindBoard:
         self.code = self.generate_code()
         self.guesses = []
         self.feedbacks = []
+
+# Example usage:
+if __name__ == "__main__":
+    game = MastermindBoard()
+    print("Secret code is set. Try to guess it!")
+
+    while not game.is_game_over():
+        guess = input("Enter your guess (e.g., RGYB): ").upper().strip()
+        guess = list(guess)
+        if len(guess) == 4 and all(c in MastermindBoard.COLORS for c in guess):
+            feedback = game.make_guess(guess)
+            game.print_board()
+        else:
+            print("Invalid guess. Please enter 4 colors from: R, G, B, Y, O, P")
+        
+        if game.is_solved():
+            print("Congratulations! You've guessed the code!")
+            break
+    else:
+        print("Game over! The correct code was:", game.code)
